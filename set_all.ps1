@@ -1,22 +1,14 @@
 param (
     [Parameter(Mandatory=$true, Position=0)] [string]$HexColor,
-    [Parameter(Mandatory=$true, Position=1)] [int]$BrightnessPercent
+    [ValidateRange(0, 255)]
+    [Parameter(Mandatory=$true, Position=1)] [int]$Brightness
 )
 
-# process hex and brightness input
+# process hex
 $cleanHex = $HexColor -replace '#', ''
 $R = [convert]::ToInt32($cleanHex.Substring(0,2), 16)
 $G = [convert]::ToInt32($cleanHex.Substring(2,2), 16)
 $B = [convert]::ToInt32($cleanHex.Substring(4,2), 16)
-
-# we only have the ability to set brightness as these predefined levels, so map the % input to nearest one
-$mappedBrightness = switch ($BrightnessPercent) {
-    {$_ -le 10} { 0 }   # 0%
-    {$_ -le 35} { 64 }  # 25%
-    {$_ -le 60} { 128 } # 50%
-    {$_ -le 85} { 192 } # 75%
-    Default     { 255 } # 100%
-}
 
 # initialise hardware client
 Add-Type -AssemblyName System.Net.Http
@@ -66,7 +58,7 @@ $bodyObj = @{
     Scope         = 2
     Speed         = 5
     Direction     = 0
-    Brightness    = $mappedBrightness
+    Brightness    = $Brightness
     Color         = @(
         @{
             ColorContext = $null
