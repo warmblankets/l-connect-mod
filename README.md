@@ -1,4 +1,4 @@
-l-connect 3 locks down basic functionality behind a slow, brittle UI with zero capability for automation. no api, no extensibility, nothing. just expensive hardware paired with software that gets in its own way.
+l-connect 3 locks down basic functionality behind a slow, brittle UI with zero capability for automation. no documented api, no extensibility, nothing. just expensive hardware paired with software that gets in its own way.
 
 i spent a single day reverse engineering the way that l-connect 3 communicates with the l-connect service to apply lighting effects to wireless fans/aios.
 
